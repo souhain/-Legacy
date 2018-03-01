@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rpc-trail>
+    <snapshot sequence="1" entityName="NuevoCliente">
+        <invoke rpcPath="nuevo_cliente">
+            <rpcFields>
+                <field length="1" direction="INPUT_OUTPUT" name="name" order="0"/>
+                <field length="1" direction="INPUT_OUTPUT" name="address" order="0"/>
+                <field length="1" direction="INPUT_OUTPUT" name="email" order="0"/>
+                <field length="1" direction="INPUT_OUTPUT" name="phone" order="0"/>
+                <field length="1" type="java.math.BigDecimal" direction="INPUT_OUTPUT" name="saldo" order="0"/>
+                <field length="1" direction="INPUT_OUTPUT" name="ejecutiveEmail" order="0"/>
+                <field length="1" type="java.lang.Integer" direction="INPUT_OUTPUT" name="pCliente2" order="0"/>
+                <field length="1" type="java.lang.Integer" direction="INPUT_OUTPUT" name="pCuenta2" order="0"/>
+                <field length="1" type="java.math.BigDecimal" direction="INPUT_OUTPUT" name="pSaldo" order="0"/>
+            </rpcFields>
+        </invoke>
+        <result>
+            <rpcFields>
+                <field value="s" length="1" modified="true" direction="INPUT_OUTPUT" name="name" order="0"/>
+                <field value="w" length="1" modified="true" direction="INPUT_OUTPUT" name="address" order="0"/>
+                <field value="m" length="1" modified="true" direction="INPUT_OUTPUT" name="email" order="0"/>
+                <field value="q" length="1" modified="true" direction="INPUT_OUTPUT" name="phone" order="0"/>
+                <field value="0" length="1" modified="true" type="java.math.BigDecimal" direction="INPUT_OUTPUT" name="saldo" order="0"/>
+                <field value="m" length="1" modified="true" direction="INPUT_OUTPUT" name="ejecutiveEmail" order="0"/>
+                <field value="1271944063" length="1" modified="true" type="java.lang.Integer" direction="INPUT_OUTPUT" name="pCliente2" order="0"/>
+                <field value="142664447" length="1" modified="true" type="java.lang.Integer" direction="INPUT_OUTPUT" name="pCuenta2" order="0"/>
+                <field value="0" length="1" modified="true" type="java.math.BigDecimal" direction="INPUT_OUTPUT" name="pSaldo" order="0"/>
+            </rpcFields>
+        </result>
+    </snapshot>
+</rpc-trail>

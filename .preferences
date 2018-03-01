@@ -1,0 +1,11 @@
+#
+#Wed Feb 28 15:24:28 CST 2018
+API_SOURCE_FOLDER=src/main/java
+FRONTEND_SOLUTION=RESTSERVICES
+GENERATE_TEST=0
+WEB_PACKAGE=com.intento1.openlegacy.web
+API_PACKAGE=com.intento1.openlegacy
+USE_AJ=1
+BACKEND_SOLUTION=RPC
+DESIGNTIME_CONTEXT=default
+PROVIDER=openlegacy-db-stored-proc

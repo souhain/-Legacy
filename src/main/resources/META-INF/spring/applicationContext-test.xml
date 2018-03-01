@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd
+		http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<context:component-scan base-package="com.intento1.openlegacy"></context:component-scan>
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<context:property-placeholder location="classpath*:/*.properties" />
+
+	<import resource="classpath*:/META-INF/openlegacy-rpc-basic-context.xml" />
+
+	<bean id="rpcSession" parent="abstractRpcSession" scope="prototype" class="org.openlegacy.rpc.support.MockupRpcSession">
+		<property name="connection" ref="rpcConnection" />
+		<aop:scoped-proxy />
+	</bean>
+
+	<bean id="rpcConnection" factory-bean="rpcConnectionFactory" factory-method="getConnection" />
+
+	<bean id="rpcRegistry" class="org.openlegacy.rpc.support.DefaultRpcEntitiesRegistry">
+		<property name="packages">
+			<list>
+				<value>com.intento1.openlegacy</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<bean id="rpcConnectionFactory" class="org.openlegacy.rpc.mock.MockRpcConnectionFactory">
+		<property name="root" value="/trails" />
+		<property name="trailName" value="demo_session.trail" />
+	</bean>
+
+	<bean id="datosClientesService" class="com.intento1.openlegacy.services.DatosClientesServiceImpl" />
+</beans>

@@ -1,0 +1,101 @@
+<h3>${name} test page</h3>
+
+<div class="row">
+	<uib-tabset justified="true">
+	    <uib-tab heading="Form">
+	    	<div class="row">
+	    		<button class="btn btn-default btn-lg" ng-click="formGet()">GET</button>
+	    		<button class="btn btn-primary btn-lg" ng-click="formPost()">POST</button>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-sm-12">
+	    			<label>GET: </label>
+	    			<span>{{baseUrl + getGetUrl()}}</span>
+	    		</div>
+	    		<div class="col-sm-12">
+	    			<label>POST body: </label>
+	    			<span>{{model}}</span>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-sm-4 no-pa-ma">
+	    			<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Input</h3>
+					  </div>
+					  <div class="panel-body">
+					  	<div class="row">
+					  		<#list methods as method>
+								<#list method.inputParams as inputParam>
+									<#list inputParam.fields as field>
+							<div class="col-sm-12">
+					  			<label>${field.fieldName}</label>
+					  			<input class="form-control" ng-model="model.${field.fieldName}" />
+					  		</div>
+									</#list>
+								</#list>
+							</#list>
+					  	</div>
+					  </div>
+					</div>
+	    		</div>
+	    		<div class="col-sm-8 no-pa-ma">
+	    			<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Output</h3>
+					  </div>
+					  <div class="panel-body">
+					  	<div class="row">
+					  		<textarea class="form-control" rows="10" readonly="readonly">{{formRestResult}}</textarea>
+					  	</div>
+					  </div>
+					</div>
+	    		</div>
+	    	</div>
+	   	</uib-tab>
+	    <uib-tab heading="Raw">
+	    	<div class="row">
+	    		<button class="btn btn-default btn-lg" ng-click="rawGet()">GET</button>
+	    		<button class="btn btn-primary btn-lg" ng-click="rawPost()">POST</button>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-sm-12">
+	    			<label>GET: </label>
+	    			<span>{{baseUrl + serviceUrl + rawData}}</span>
+	    		</div>
+	    		<div class="col-sm-12">
+	    			<label>POST body: </label>
+	    			<span>{{rawData}}</span>
+	    		</div>
+	    	</div>
+	    	<div class="row">
+	    		<div class="col-sm-6 no-pa-ma">
+	    			<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Input</h3>
+					  </div>
+					  <div class="panel-body">
+					  	<div class="row">
+					  		<div class="col-sm-12">
+					  			<textarea class="form-control" rows="10" id="rawData" ng-model="rawData"></textarea>
+					  		</div>
+					  	</div>
+					  </div>
+					</div>
+	    		</div>
+	    		<div class="col-sm-6 no-pa-ma">
+	    			<div class="panel panel-default">
+					  <div class="panel-heading">
+					    <h3 class="panel-title">Output</h3>
+					  </div>
+					  <div class="panel-body">
+					  	<div class="row">
+					  		<textarea class="form-control" rows="10" readonly="readonly">{{rawRestResult}}</textarea>
+					  	</div>
+					  </div>
+					</div>
+	    		</div>
+	    	</div>
+	    </uib-tab>
+	</uib-tabset>
+</div>

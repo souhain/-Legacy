@@ -1,0 +1,80 @@
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context" xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:p="http://www.springframework.org/schema/p" xmlns:security="http://www.springframework.org/schema/security" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd   http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd   http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd   http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.2.xsd   http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
+
+	<context:component-scan base-package="com.intento1.openlegacy"/>
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<import resource="classpath*:/META-INF/storedproc-openlegacy-rpc-provider.xml"/>
+  <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping">
+		<property name="order" value="0"/>
+	</bean>
+
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">
+		<property name="order" value="1"/>
+	</bean>
+
+	<!-- Common controllers -->
+	<context:component-scan base-package="org.openlegacy.mvc" resource-pattern="*.class" use-default-filters="false">
+		<context:include-filter expression="org.springframework.stereotype.Controller" type="annotation"/>
+	</context:component-scan>
+
+	<import resource="classpath*:/META-INF/openlegacy-rpc-basic-context.xml"/>
+	<import resource="classpath*:/META-INF/jt400-openlegacy-rpc-provider.xml"/>
+
+	<bean class="org.openlegacy.rpc.support.DefaultRpcEntitiesRegistry" id="rpcRegistry">
+		<property name="packages">
+			<list>
+				<value>com.intento1.openlegacy</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.openlegacy.support.SimpleServicesRegistry" id="serviceRegistry">
+		<property name="packages">
+			<list>
+				<value>com.intento1.openlegacy.services</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean id="rpcSession" parent="abstractRpcSession" scope="prototype"/>
+
+	<context:property-override ignore-unresolvable="true" location="classpath:application.properties"/>
+
+	<bean class="org.springframework.beans.factory.config.PropertiesFactoryBean" id="appProperties" p:ignoreResourceNotFound="false" p:location="classpath:application.properties"/>
+	<bean class="org.springframework.beans.factory.config.PropertyOverrideConfigurer">
+		<property name="ignoreResourceNotFound">
+			<value>true</value>
+		</property>
+		<property name="ignoreInvalidKeys">
+			<value>true</value>
+		</property>
+		<property name="locations">
+			<list>
+				<value>classpath:/*.properties</value>
+				<value>file:${user.home}/.openlegacy/#{getObject('appProperties') == null?'':@appProperties.getProperty('openLegacyProperties.userPropertiesFolderName')}/*.properties
+				</value>
+			</list>
+		</property>
+	</bean>
+
+	<bean class="org.openlegacy.log.JdbcServiceLoggerImpl" id="serviceLogger">
+		<property name="tableName" value="${serviceUsage.tableName}"/>
+		<property name="durationTableName" value="${serviceUsage.countersTableName}"/>
+		<property name="level">
+			<value type="org.openlegacy.log.ApiLogger$Level">${serviceUsage.loggerLevel}</value>
+		</property>
+	</bean>
+
+	<import resource="classpath:/META-INF/spring/spring-security.xml"/>
+
+	<context:component-scan base-package="com.intento1.openlegacy.services.controllers"/>
+
+	<import resource="classpath*:/META-INF/openlegacy-swagger-jaxrs-context.xml"/>
+
+<!-- Register WS Pool place-holder start
+Register WS Pool place-holder end -->
+
+	<bean class="org.openlegacy.cache.ehcache.EhcacheCacheManager" id="cacheManager"/>
+	<bean id="datosClientesService" class="com.intento1.openlegacy.services.DatosClientesServiceImpl" />
+</beans>
